@@ -7,32 +7,24 @@ const Country = ({nameId}) => {
     const [countryBorders, setCountryBorders] = useState(null);
 
     const fetchDataCountry = useCallback(async () => {
+
         if (nameId !== null) {
             const resp = await axios(`https://restcountries.com/v2/name/${nameId}`);
+            const borders = await  Promise.all(resp.data[0]['borders'].map(async (b) => {
+                const s = await axios(`https://restcountries.com/v2/alpha/${b}`);
+                return s.data.name;
+            }));
+
             setCountry(resp.data);
-            setCountryBorders(resp.data[0].borders);
-            // resp.data[0].borders.map(async (b) => {
-            //     const r = await axios(`https://restcountries.com/v2/alpha/${b}`);
-            //     setBorders(r.data);
-            // });
+            setCountryBorders(borders);
         }
     }, [nameId]);
 
-    useEffect( () => {
+    useEffect(() => {
         fetchDataCountry().catch();
     }, [fetchDataCountry]);
 
-    console.log(countryBorders);
-
-    const getBordersName = () => {
-        countryBorders.map(async (b) => {
-            console.log(b);
-            const r = await axios(`https://restcountries.com/v2/alpha/${b}`);
-            console.log(r.data);
-        });
-    };
-
-    return country &&(
+    return country && (
         <div className='country'>
             <h1>{country[0].name}</h1>
             <p>{country[0].capital}</p>
@@ -43,7 +35,9 @@ const Country = ({nameId}) => {
             <p>{country[0].population}</p>
             <img style={{width: "300px", height: "auto"}} src={country[0].flag} alt=""/>
             <div>
-                {getBordersName()}
+                {countryBorders.map(b => (
+                    <p key={b}>{b}</p>
+                ))}
             </div>
         </div>
     );
