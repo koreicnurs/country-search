@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import Country from "../../components/Country/Country";
+import './Countries.css'
 
 const Countries = () => {
     const [countries, setCountries] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState(null)
 
     const url = 'https://restcountries.com/v2/all';
 
@@ -21,14 +24,12 @@ const Countries = () => {
         <>
             <div className='countries'>
                 {countries.map(c => {
-                    return <p key={c.name} onClick={() => fetchDataCointry(c.name)}>{c.name}</p>
+                    return <p key={c.name} onClick={() => setSelectedCountry(c.name)}>{c.name}</p>
                 })}
             </div>
-            <div>
-                {country.map(m => {
-                    console.log(m);
-                })}
-            </div>
+            <Country
+                nameId={selectedCountry}
+            />
         </>
 
     );
