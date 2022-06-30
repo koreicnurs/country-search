@@ -1,3 +1,24 @@
+body {
+    background: lightblue;
+}
 #root {
     display: flex;
+}
+
+.error {
+    background: red;
+    font-size: 30px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+.countries-block {
+    color: darkorange;
+    margin: 50px;
+}
+
+.countries {
+    max-height: 600px;
+    overflow-y: scroll
 }

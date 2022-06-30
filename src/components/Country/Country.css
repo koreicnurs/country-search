@@ -1,0 +1,23 @@
+.country {
+    display: flex;
+    color: blue;
+}
+
+.main-info-country {
+    margin-right: 50px;
+ }
+
+img {
+    margin: 100px 0;
+}
+
+.name-country {
+    margin-top: 90px;
+    margin-bottom: 40px;
+    color: green;
+}
+
+.borders-with {
+    color: chocolate;
+}
+

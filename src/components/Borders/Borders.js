@@ -1,4 +1,5 @@
 import React from 'react';
+import './Borders.css';
 
 const Borders = ({border}) => {
     return (
